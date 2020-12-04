@@ -8,10 +8,15 @@ package base_de_donnee;
 import Application.BDD;
 import Application.Parameter;
 import Application.ResultSetTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,13 +35,13 @@ public final class Emprunt extends javax.swing.JFrame {
         db = new BDD(new Parameter().HOST_DB, new Parameter().USERNAME_DB, new Parameter().PASSWORD_DB, new Parameter().IPHOST, new Parameter().PORT);
         initComponents();
         table();
-        remplircombo();
+      
         remplircombo2();
         remplircombo3();
     }
 
     public void table() {
-        String a[] = {"idemprunte", "dateemp", "dateretour", "idens", "idLi", "idetu"};
+        String a[] = {"idemprunte", "dateemp", "dateretour", "adherent", "idadherent", "idli"};
         rs = db.querySelect(a, "emprunt");
         emprunttable.setModel(new ResultSetTableModel(rs));
     }
@@ -45,31 +50,68 @@ public final class Emprunt extends javax.swing.JFrame {
         idtext.setText("");
         dateemp.setText("");
         dateretour.setText("");
+        role.setText("");
 
     }
-    public void remplircombo() throws SQLException{
-        String a[]={"idA","nom","prenom"};
+    /*public void remplircombo(JComboBox bx) throws SQLException{
+       String a[]={"idA","nom","prenom"};
        rs=db.querySelect(a, "enseignant");
        while(rs.next()){
            String id=String.valueOf(rs.getInt("idA"));
            //String name =rs.getString("nom");
            //String lastname =rs.getString("prenom");
-           jComboBox1.addItem(id);
+           bx.addItem(id);
        }
        
-    }
-     public void remplircombo2() throws SQLException{
-        String a[]={"idE","nom","prenom"};
-       rs=db.querySelect(a, "etudiant");
-       while(rs.next()){
-           String id=String.valueOf(rs.getInt("idE"));
-          // String name =rs.getString("nom");
-           //String lastname =rs.getString("prenom");
-           jComboBox2.addItem(id);
-          
-       }
+    }*/
+     
+        
+        public void remplircombo2() throws SQLException{
+             enseignant.addItemListener(new ItemListener(){
+                 @Override
+                 public void itemStateChanged(ItemEvent e) {
+                     if(enseignant.isSelected()){
+                      
+                        role.setText("enseignant");
+                        jComboBox1.removeAllItems();
+                        String a[]={"idA"};
+                        rs=db.querySelect(a, "enseignant");
+                         try {
+                             while(rs.next()){
+                                 String id=String.valueOf(rs.getInt("idA"));
+                                 jComboBox1.addItem(id);
+                             }} catch (SQLException ex) {
+                             Logger.getLogger(Emprunt.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                    }  
+                 }
+                 
+            });
+              etudiant.addItemListener(new ItemListener(){
+                 @Override
+                 public void itemStateChanged(ItemEvent e) {
+                     if(etudiant.isSelected()){
+                      
+                            role.setText("etudiant");
+                            jComboBox1.removeAllItems();
+
+                            String a[]={"idE"};
+                            rs=db.querySelect(a, "etudiant");
+                         try {
+                             while(rs.next()){
+                                 String id=String.valueOf(rs.getInt("idE"));
+                                 jComboBox1.addItem(id);
+                             }    } catch (SQLException ex) {
+                             Logger.getLogger(Emprunt.class.getName()).log(Level.SEVERE, null, ex);
+                         }
+                        }
+                    }
+            });
+             
+        }
        
-    }
+        
+    
      public void remplircombo3() throws SQLException{
         String a[]={"idL","titre","auteur"};
        rs=db.querySelect(a, "livre");
@@ -91,6 +133,8 @@ public final class Emprunt extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         label1 = new java.awt.Label();
         jPanel2 = new javax.swing.JPanel();
@@ -103,12 +147,13 @@ public final class Emprunt extends javax.swing.JFrame {
         emprunter = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         supprimer = new javax.swing.JButton();
-        enseignantlab = new javax.swing.JLabel();
-        etudiantlab = new javax.swing.JLabel();
+        role = new javax.swing.JLabel();
         livrelab = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
         jComboBox3 = new javax.swing.JComboBox<>();
+        adherentlab = new javax.swing.JLabel();
+        enseignant = new javax.swing.JCheckBox();
+        etudiant = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         emprunttable = new javax.swing.JTable();
 
@@ -165,10 +210,6 @@ public final class Emprunt extends javax.swing.JFrame {
             }
         });
 
-        enseignantlab.setText("enseignant");
-
-        etudiantlab.setText("etudiant");
-
         livrelab.setText("livre");
 
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -177,15 +218,25 @@ public final class Emprunt extends javax.swing.JFrame {
             }
         });
 
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
-            }
-        });
-
         jComboBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox3ActionPerformed(evt);
+            }
+        });
+
+        adherentlab.setText("Adherent");
+
+        enseignant.setText("enseignant");
+        enseignant.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                enseignantStateChanged(evt);
+            }
+        });
+
+        etudiant.setText("etudiant");
+        etudiant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                etudiantActionPerformed(evt);
             }
         });
 
@@ -196,38 +247,43 @@ public final class Emprunt extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(emprunter)
-                .addGap(47, 47, 47)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addGap(74, 74, 74)
                 .addComponent(supprimer)
-                .addGap(36, 36, 36))
+                .addGap(88, 88, 88))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(68, 68, 68)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dateretourlab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(idlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dateemplab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(role, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(88, 88, 88)))
+                            .addGap(45, 45, 45))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(livrelab, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(adherentlab, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(135, 135, 135)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(dateretourlab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(idlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(dateemplab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(enseignantlab, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(57, 57, 57))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(etudiantlab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGap(36, 36, 36))))
-                        .addGap(45, 45, 45))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(livrelab, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dateemp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(idtext, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dateretour, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(dateemp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(idtext, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(dateretour, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBox3, 0, 141, Short.MAX_VALUE))
+                            .addComponent(enseignant))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(etudiant))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -245,15 +301,20 @@ public final class Emprunt extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dateretourlab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dateretour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(adherentlab)
+                    .addComponent(enseignant)
+                    .addComponent(etudiant))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(enseignantlab))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(etudiantlab)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(role)
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(livrelab)
                     .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -276,6 +337,11 @@ public final class Emprunt extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        emprunttable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                emprunttableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(emprunttable);
         emprunttable.getAccessibleContext().setAccessibleName("");
 
@@ -285,6 +351,9 @@ public final class Emprunt extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 30, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 834, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -293,10 +362,7 @@ public final class Emprunt extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(171, 171, 171)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 208, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 834, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -305,9 +371,9 @@ public final class Emprunt extends javax.swing.JFrame {
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(217, Short.MAX_VALUE))
+                .addGap(88, 88, 88)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         label1.getAccessibleContext().setAccessibleName("");
@@ -354,11 +420,11 @@ public final class Emprunt extends javax.swing.JFrame {
 
     private void emprunterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emprunterActionPerformed
         // TODO add your handling code here:
-        if ( dateemp.getText().equals("") || jComboBox1.getSelectedObjects().equals("") || jComboBox2.getSelectedObjects().equals("") || jComboBox3.getSelectedObjects().equals("") ) {
+        if ( dateemp.getText().equals("") || role.getText().equals("")||jComboBox1.getSelectedObjects().equals("")  || jComboBox3.getSelectedObjects().equals("") ) {
             JOptionPane.showMessageDialog(this, "SVP entrer les informations complete");
         } else {
-            String[] colon = {"dateemp","dateretour","idens", "idetu","idli"};
-            String[] inf = {dateemp.getText(), dateretour.getText(),String.valueOf(jComboBox1.getSelectedItem()),String.valueOf(jComboBox2.getSelectedItem()),String.valueOf(jComboBox3.getSelectedItem())};
+            String[] colon = {"dateemp","dateretour","adherent", "idadherent","idli"};
+            String[] inf = {dateemp.getText(), dateretour.getText(),role.getText(),String.valueOf(jComboBox1.getSelectedItem()),String.valueOf(jComboBox3.getSelectedItem())};
             System.out.println(db.queryInsert("emprunt", colon, inf));
            table();
             actualiser();
@@ -370,11 +436,6 @@ public final class Emprunt extends javax.swing.JFrame {
         jComboBox1.getSelectedItem();
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-        jComboBox2.getSelectedItem();
-    }//GEN-LAST:event_jComboBox2ActionPerformed
-
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         // TODO add your handling code here:
         jComboBox3.getSelectedItem();
@@ -382,11 +443,11 @@ public final class Emprunt extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if ( dateemp.getText().equals("") ||dateretour.getText().equals("") || jComboBox1.getSelectedObjects().equals("") || jComboBox2.getSelectedObjects().equals("") || jComboBox3.getSelectedObjects().equals("") ) {
+        if ( dateemp.getText().equals("") ||dateretour.getText().equals("") || role.getText().equals("") || jComboBox1.getSelectedObjects().equals("")  || jComboBox3.getSelectedObjects().equals("") ) {
             JOptionPane.showMessageDialog(this, "SVP entrer les informations complete");
         } else {
-            String[] colon = {"dateemp","dateretour","idens", "idetu","idli"};
-            String[] inf = {dateemp.getText(), dateretour.getText(),String.valueOf(jComboBox1.getSelectedItem()),String.valueOf(jComboBox2.getSelectedItem()),String.valueOf(jComboBox3.getSelectedItem())};
+            String[] colon = {"dateemp","dateretour","adherent", "idadherent","idli"};
+            String[] inf = {dateemp.getText(), dateretour.getText(),role.getText(),String.valueOf(jComboBox1.getSelectedItem()),String.valueOf(jComboBox3.getSelectedItem())};
          
             System.out.println(db.queryUpdate("emprunt", colon, inf, "idemprunte='" + idtext.getText() + "'"));
             table();
@@ -394,19 +455,39 @@ public final class Emprunt extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void emprunttableMouseClicked(java.awt.event.MouseEvent evt) {
+    private void emprunttableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emprunttableMouseClicked
         // TODO add your handling code here:
-
         idtext.setText(String.valueOf(emprunttable.getValueAt(emprunttable.getSelectedRow(), 0)));
-        /*dateemp.setText((String)emprunttable.getValueAt(emprunttable.getSelectedRow(), 1));
+        dateemp.setText((String)emprunttable.getValueAt(emprunttable.getSelectedRow(), 1));
         dateretour.setText((String)emprunttable.getValueAt(emprunttable.getSelectedRow(), 2));
+        role.setText((String)(emprunttable.getValueAt(emprunttable.getSelectedRow(), 3)));
         
-        jComboBox1.setSelectedItem(String.valueOf(emprunttable.getValueAt(emprunttable.getSelectedRow(), 3)));
-        jComboBox2.setSelectedItem(String.valueOf(emprunttable.getValueAt(emprunttable.getSelectedRow(), 4)));
-        jComboBox3.setSelectedItem(String.valueOf(emprunttable.getValueAt(emprunttable.getSelectedRow(), 5)));*/
+        if(role.getText().equals("etudiant")){
+            enseignant.setSelected(false);
+            etudiant.setSelected(true);
+            //jComboBox1.setSelectedItem(String.valueOf(emprunttable.getValueAt(emprunttable.getSelectedRow(), 4)));
+            
+        }else{
+             etudiant.setSelected(false);
+            enseignant.setSelected(true);
+            
+            //jComboBox1.setSelectedItem(String.valueOf(emprunttable.getValueAt(emprunttable.getSelectedRow(), 4)));
+        }
         
+       jComboBox1.setSelectedItem(String.valueOf(emprunttable.getValueAt(emprunttable.getSelectedRow(), 4)));
+        jComboBox3.setSelectedItem(String.valueOf(emprunttable.getValueAt(emprunttable.getSelectedRow(), 5)));
+    }//GEN-LAST:event_emprunttableMouseClicked
 
-    }
+    private void etudiantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etudiantActionPerformed
+        // TODO add your handling code here:
+        etudiant.isSelected();
+    }//GEN-LAST:event_etudiantActionPerformed
+
+    private void enseignantStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_enseignantStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_enseignantStateChanged
+
+    
 
     /**
      * @param args the command line arguments
@@ -448,25 +529,28 @@ public final class Emprunt extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel adherentlab;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private java.awt.TextField dateemp;
     private java.awt.Label dateemplab;
     private java.awt.TextField dateretour;
     private java.awt.Label dateretourlab;
     private javax.swing.JButton emprunter;
     private javax.swing.JTable emprunttable;
-    private javax.swing.JLabel enseignantlab;
-    private javax.swing.JLabel etudiantlab;
+    private javax.swing.JCheckBox enseignant;
+    private javax.swing.JCheckBox etudiant;
     private java.awt.Label idlabel;
     private java.awt.TextField idtext;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
     private javax.swing.JLabel livrelab;
+    private javax.swing.JLabel role;
     private javax.swing.JButton supprimer;
     // End of variables declaration//GEN-END:variables
 
