@@ -193,9 +193,14 @@ public class Login extends javax.swing.JFrame {
                 h.setVisible(true);
                 this.dispose();
                 
-            } }
+            } else if (hak.equals("bibliocataire")){
+                acueilB b= new acueilB();
+                b.setVisible(true);
+                this.dispose();
+        
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    }
     private void txtuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtuserActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtuserActionPerformed
