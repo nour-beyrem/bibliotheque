@@ -366,8 +366,8 @@ public class Livre extends javax.swing.JFrame {
         // TODO add your handling code here:
         
       
-        accueil h= new accueil();
-                h.setVisible(true);
+        acueilB hB= new acueilB();
+                hB.setVisible(true);
                 this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 

@@ -55,15 +55,19 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="30" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="834" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
+              </Group>
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="204" max="-2" attributes="0"/>
                           <Component id="label1" min="-2" pref="367" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
-                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
@@ -73,16 +77,12 @@
                           <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                           <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
+                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="30" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="834" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -92,7 +92,7 @@
                   <Component id="label1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="rech" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -139,57 +139,56 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="emprunter" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="78" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                       <Component id="supprimer" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="dateretourlab" max="32767" attributes="0"/>
-                                          <Component id="idlabel" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
-                                          <Component id="dateemplab" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="role" max="32767" attributes="0"/>
-                                          <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="livrelab" min="-2" pref="86" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="adherentlab" min="-2" pref="105" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="role" max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="livrelab" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
+                                          <Component id="adherentlab" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="dateemp" max="32767" attributes="0"/>
                                       <Component id="idtext" max="32767" attributes="0"/>
-                                      <Component id="dateretour" max="32767" attributes="0"/>
                                       <Component id="jComboBox3" pref="141" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="enseignant" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBox1" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="enseignant" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="etudiant" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="etudiant" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jComboBox1" min="-2" pref="141" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="dateretourlab" max="32767" attributes="0"/>
+                                  <Component id="idlabel" alignment="0" min="-2" pref="74" max="-2" attributes="0"/>
+                                  <Component id="dateemplab" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="28" pref="28" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="date1" max="32767" attributes="0"/>
+                                  <Component id="date2" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="229" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -204,12 +203,12 @@
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="dateemplab" min="-2" max="-2" attributes="0"/>
-                          <Component id="dateemp" min="-2" max="-2" attributes="0"/>
+                          <Component id="date1" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="dateretourlab" min="-2" max="-2" attributes="0"/>
-                          <Component id="dateretour" min="-2" max="-2" attributes="0"/>
+                          <Component id="date2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -233,7 +232,7 @@
                           <Component id="livrelab" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBox3" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="16" max="32767" attributes="0"/>
+                      <EmptySpace pref="50" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="emprunter" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -266,8 +265,6 @@
                 <Property name="text" type="java.lang.String" value="date d&apos;emprunt"/>
               </Properties>
             </Component>
-            <Component class="java.awt.TextField" name="dateemp">
-            </Component>
             <Component class="java.awt.Label" name="dateretourlab">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -275,11 +272,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="date de retour "/>
               </Properties>
-            </Component>
-            <Component class="java.awt.TextField" name="dateretour">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dateretourActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="emprunter">
               <Properties>
@@ -358,6 +350,10 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="etudiantActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="date1">
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="date2">
             </Component>
           </SubComponents>
         </Container>

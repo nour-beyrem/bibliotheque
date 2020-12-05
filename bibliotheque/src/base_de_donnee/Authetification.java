@@ -8,6 +8,9 @@ package base_de_donnee;
 
 import Application.BDD;
 import Application.Parameter;
+import java.awt.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -18,18 +21,23 @@ import javax.swing.JOptionPane;
  *
  * @author LENOVO
  */
-public class Login extends javax.swing.JFrame {
+public class Authetification extends javax.swing.JFrame {
     
     ResultSet rs;
     BDD db;
-    String username1,password1,hak;
+    String username1,password1,adherent;
     /**
      * Creates new form Login
      */
-    public Login() {
+    public Authetification() {
          db = new BDD(new Parameter().HOST_DB, new Parameter().USERNAME_DB, new Parameter().PASSWORD_DB, new Parameter().IPHOST, new Parameter().PORT);
         initComponents();
+        
+        
     }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -170,35 +178,35 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-         rs= db.querySelectAll("utilisateur", "username='"+txtuser.getText()+"' and password='" + txtpass.getText()+"'");
+       
+          rs= db.querySelectAll("utilisateur", "username='"+txtuser.getText()+"' and password='" + txtpass.getText()+"'");
          
         try {
             while (rs.next())
             {
                 username1 = rs.getString("username");
                 password1 = rs.getString("password");
-                hak= rs.getString("type");
+                adherent= rs.getString("type");
                 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE,null,ex);
+            Logger.getLogger(Authetification.class.getName()).log(Level.SEVERE,null,ex);
         }
-        if (username1 == null && password1 == null)
+        if (username1 == null || password1 == null)
         {
             JOptionPane.showMessageDialog(this, "le nom du l'utilisateur ou le mot de passe et incorrecte");
         } else   {
-            if (hak.equals("admin")){
+            if (adherent.equals("admin")){
                 accueil h= new accueil();
                 h.setVisible(true);
-                this.dispose();
                 
-            } else if (hak.equals("bibliocataire")){
+                
+            } else{
                 acueilB b= new acueilB();
                 b.setVisible(true);
-                this.dispose();
-        
         }
+            this.setVisible(false);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
     }
     private void txtuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtuserActionPerformed
@@ -231,23 +239,27 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Authetification.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Authetification.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Authetification.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Authetification.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new Authetification().setVisible(true);
+               
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
